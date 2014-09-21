@@ -1,0 +1,7 @@
+C:\Users\Галина\Documents\GitHub\3semester\08.09.2014\BSTree\BSTreeTest\obj\Debug\BSTreeTest.csprojResolveAssemblyReference.cache
+C:\Users\Галина\Documents\GitHub\3semester\08.09.2014\BSTree\BSTreeTest\bin\Debug\BSTreeTest.dll
+C:\Users\Галина\Documents\GitHub\3semester\08.09.2014\BSTree\BSTreeTest\bin\Debug\BSTreeTest.pdb
+C:\Users\Галина\Documents\GitHub\3semester\08.09.2014\BSTree\BSTreeTest\bin\Debug\BSTree.exe
+C:\Users\Галина\Documents\GitHub\3semester\08.09.2014\BSTree\BSTreeTest\bin\Debug\BSTree.pdb
+C:\Users\Галина\Documents\GitHub\3semester\08.09.2014\BSTree\BSTreeTest\obj\Debug\BSTreeTest.dll
+C:\Users\Галина\Documents\GitHub\3semester\08.09.2014\BSTree\BSTreeTest\obj\Debug\BSTreeTest.pdb

@@ -1,0 +1,6 @@
+C:\Users\Галина\Documents\GitHub\3semester\08.09.2014\BSTree\BSTree\bin\Debug\BSTree.exe.config
+C:\Users\Галина\Documents\GitHub\3semester\08.09.2014\BSTree\BSTree\obj\Debug\BSTree.csprojResolveAssemblyReference.cache
+C:\Users\Галина\Documents\GitHub\3semester\08.09.2014\BSTree\BSTree\bin\Debug\BSTree.exe
+C:\Users\Галина\Documents\GitHub\3semester\08.09.2014\BSTree\BSTree\bin\Debug\BSTree.pdb
+C:\Users\Галина\Documents\GitHub\3semester\08.09.2014\BSTree\BSTree\obj\Debug\BSTree.exe
+C:\Users\Галина\Documents\GitHub\3semester\08.09.2014\BSTree\BSTree\obj\Debug\BSTree.pdb
