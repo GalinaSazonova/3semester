@@ -1,13 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BSTree
 {
+    /// <summary>
+    /// Class for Binary Search Tree.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     public class BSTClass<T> : IEnumerable<T> where T : IComparable<T>
     {
+        /// <summary>
+        /// Class for tree element.
+        /// </summary>
         private class BSTreeNode
         {
             public T Key { get; set; }
@@ -24,11 +29,21 @@ namespace BSTree
 
         private BSTreeNode root;
 
+        /// <summary>
+        /// Check if tree is empty.
+        /// </summary>
+        /// <returns>true, if empty</returns>
         public bool IsEmpty()
         {
             return root == null;
         }
 
+        /// <summary>
+        /// Check, if element is in the tree.
+        /// </summary>
+        /// <param name="keyToCheck"></param>
+        /// <param name="nodeToCheck"></param>
+        /// <returns></returns>
         private bool ExistsInTree(T keyToCheck, BSTreeNode nodeToCheck)
         {
             if (nodeToCheck == null)
@@ -53,11 +68,20 @@ namespace BSTree
             }
         }
 
+        /// <summary>
+        /// User can check if element is in the tree.
+        /// </summary>
+        /// <param name="keyToCheck"></param>
+        /// <returns></returns>
         public bool IsInTree(T keyToCheck)
         {
             return ExistsInTree(keyToCheck, root);
         }
 
+        /// <summary>
+        /// Insert key to tree.
+        /// </summary>
+        /// <param name="keyToInsert"></param>
         public void Insert(T keyToInsert)
         {
             if (IsEmpty())
@@ -96,6 +120,12 @@ namespace BSTree
             }
         }
 
+        /// <summary>
+        /// Removes element from tree.
+        /// </summary>
+        /// <param name="keyToRemove"></param>
+        /// <param name="root"></param>
+        /// <returns></returns>
         private BSTreeNode Remove(T keyToRemove, BSTreeNode root)
         {
             if (root == null)
@@ -162,6 +192,10 @@ namespace BSTree
             }
         }
 
+        /// <summary>
+        /// Removes element from tree by user's order.
+        /// </summary>
+        /// <param name="keyToRemove"></param>
         public void RemoveKey(T keyToRemove)
         {
             root = Remove(keyToRemove, root);
@@ -169,7 +203,7 @@ namespace BSTree
 
         public IEnumerator<T> GetEnumerator()
         {
-            throw new NotImplementedException();
+            return new BSTEnumerator(this);
         }
 
         System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
@@ -177,9 +211,71 @@ namespace BSTree
             throw new NotImplementedException();
         }
 
-        private class BSTEnumerator
+        /// <summary>
+        /// Class for tree's enumerator.
+        /// </summary>
+        private class BSTEnumerator : IEnumerator<T>
         {
+            private int numerator = -1;
+            private BSTClass<T> tree;
+            private List<T> listForTree = new List<T>();
 
+            public BSTEnumerator(BSTClass<T> tree)
+            {
+                this.tree = tree;
+                treeToList(tree.root);
+            }
+
+            /// <summary>
+            /// Add tree to list ascending.
+            /// </summary>
+            /// <param name="elementToPaste"></param>
+            private void treeToList(BSTreeNode elementToPaste)
+            {
+                if (tree.root == null)
+                    return;
+
+                if (elementToPaste != null)
+                    listForTree.Add(elementToPaste.Key);
+
+                if (elementToPaste.LeftChild != null)
+                    treeToList(elementToPaste.LeftChild);
+
+                if (elementToPaste.RightChild != null)
+                    treeToList(elementToPaste.RightChild);
+            }
+
+            public T Current
+            {
+                get { return listForTree.ElementAt(numerator); }
+            }
+
+            public void Dispose()
+            {
+            }
+
+            object System.Collections.IEnumerator.Current
+            {
+                get { return Current; }
+            }
+
+            public bool MoveNext()
+            {
+                if (listForTree.Count() == 0 || listForTree.First() == null)
+                    return false;
+                if (listForTree.ElementAt(1) == null)
+                {
+                    Reset();
+                    return false;
+                }
+                numerator++;
+                return !(listForTree.Count() == numerator);
+            }
+
+            public void Reset()
+            {
+                numerator = -1;
+            }
         }
     }
 }

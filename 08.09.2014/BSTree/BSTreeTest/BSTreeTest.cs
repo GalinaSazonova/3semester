@@ -48,6 +48,35 @@ namespace BSTreeTest
             Assert.IsFalse(tree.IsInTree(12));
         }
 
+        [TestMethod]
+        public void EnumeratorTest()
+        {
+            int count = 0;
+            foreach (int item in tree)
+            {
+                ++count;
+            }
+            Assert.AreEqual(0, count);
+        }
+
+        [TestMethod]
+        public void EnumeratorTest2()
+        {
+            tree.Insert(1);
+            tree.Insert(2);
+            tree.Insert(3);
+            tree.Insert(4);
+            tree.Insert(5);
+            tree.Insert(6);
+            int count = 1;
+            foreach (var item in tree)
+            {
+                Assert.AreEqual(count, item);
+                count++;
+            }
+            Assert.AreEqual(count, 7);
+        }
+
         
         private BSTClass<int> tree;
     }
