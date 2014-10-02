@@ -80,7 +80,7 @@ namespace Local
 
             //Count alredy infected compters.
             string[] tempor = file.ReadLine().Split(' ');
-            if (tempor[0] != "0")
+            if (tempor != null)
             {
                 numberOfInfectedPS = tempor.Length;
                 for (int i = 0; i < numberOfInfectedPS; i++)
@@ -101,68 +101,9 @@ namespace Local
             return null;
         }
 
-        /// <summary>
-        /// Makes 1 move to infect.
-        /// </summary>
-        public void Move()
+        private void Move()
         {
-            if (numberOfInfectedPS == 0)
-            {
-                for (int i = 0; i < PSList.Length; i++)
-                {
-                    if (!PSList[i].Infected && OSAllowToinfect(PSList[i]))
-                    {
-                        PSList[i].Infected = true;
-                        numberOfInfectedPS++;
-                    }
-                }
-                return;
-            }
-            for (int i = 0; i < PSList.Length; i++)
-            {
-                if (PSList[i].Infected)
-                {
-                    for (int j = 0; j < PSList.Length; j++)
-                    {
-                        if (!PSList[j].Infected && adjacencyMatrix[i, j] && OSAllowToinfect(PSList[j]))
-                        {
-                            PSList[j].Infected = true;
-                            numberOfInfectedPS++;
-                        }
-                    }
-                } 
-            }
-        }
 
-        private bool OSAllowToinfect(PS psToCheck)
-        {
-            return random.Next(99) <= psToCheck.OSType.Probability;
-        }
-
-        /// <summary>
-        /// Infect computers until they are all ill.
-        /// </summary>
-        /// <returns>list of infected ps</returns>
-        public string InfectorOfGudjets()
-        {
-            string str = "";
-            int counterOfMoves = 0;
-            while (numberOfInfectedPS != PSList.Length)
-            {
-                counterOfMoves++;
-                str += counterOfMoves + ". ";
-                for (int i = 0; i < PSList.Length; i++)
-                {
-                    if (PSList[i].Infected)
-                    {
-                        str += (i + 1) + " ";
-                    }
-                }
-                str += "\n";
-                Move();
-            }
-            str += counterOfMoves + 1 + ". All PS are infected.";
-            return str;
         }
     }
 }
