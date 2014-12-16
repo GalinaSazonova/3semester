@@ -10,9 +10,10 @@ namespace Local
     {
         private Random random;
         private bool[,] adjacencyMatrix;
-        private PS[] PSList;
+        private PС[] PСList;
         private OS[] OSList;
-        private int numberOfInfectedPS = 0;
+        private int numberOfInfectedPС = 0;
+
 
         public LocalNetwork(string fileName)
         {
@@ -20,9 +21,9 @@ namespace Local
             NetworkFromFile(fileName);
         }
 
-        private class PS
+        private class PС
         {
-            public PS(bool infected, OS OSType)
+            public PС(bool infected, OS OSType)
             {
                 this.Infected = infected;
                 this.OSType = OSType;
@@ -49,14 +50,14 @@ namespace Local
             {
                 throw new FileNotFoundException();
             }
-            int numberOfPS = Convert.ToInt32(file.ReadLine());
+            int numberOfPС = Convert.ToInt32(file.ReadLine());
 
             //Fill adjacency matrix.
-            adjacencyMatrix = new bool[numberOfPS, numberOfPS];
-            for (int i = 0; i < numberOfPS; i++)
+            adjacencyMatrix = new bool[numberOfPС, numberOfPС];
+            for (int i = 0; i < numberOfPС; i++)
             {
                 string[] temp = file.ReadLine().Split(' ');
-                for (int j = 0; j < numberOfPS; j++)
+                for (int j = 0; j < numberOfPС; j++)
                 {
                     adjacencyMatrix[i, j] = Convert.ToBoolean(Convert.ToInt32(temp[j]));
                 }
@@ -72,20 +73,20 @@ namespace Local
             }
 
             //Fill list of PS.
-            PSList = new PS[numberOfPS];
-            for (int i = 0; i <numberOfPS; i++)
+            PСList = new PС[numberOfPС];
+            for (int i = 0; i <numberOfPС; i++)
             {
-                PSList[i] = new PS(false, OSByName(file.ReadLine()));
+                PСList[i] = new PС(false, OSByName(file.ReadLine()));
             }
 
             //Count alredy infected compters.
             string[] tempor = file.ReadLine().Split(' ');
             if (tempor[0] != "0")
             {
-                numberOfInfectedPS = tempor.Length;
-                for (int i = 0; i < numberOfInfectedPS; i++)
+                numberOfInfectedPС = tempor.Length;
+                for (int i = 0; i < numberOfInfectedPС; i++)
                 {
-                    PSList[Convert.ToInt32(tempor[i]) - 1].Infected = true;
+                    PСList[Convert.ToInt32(tempor[i]) - 1].Infected = true;
                 }
             }
             file.Close();
@@ -106,37 +107,43 @@ namespace Local
         /// </summary>
         public void Move()
         {
-            if (numberOfInfectedPS == 0)
+            bool[] justInfected = new bool[PСList.Length];
+            for (int i = 0; i < justInfected.Length; i++)
             {
-                for (int i = 0; i < PSList.Length; i++)
-                {
-                    if (!PSList[i].Infected && OSAllowToinfect(PSList[i]))
-                    {
-                        PSList[i].Infected = true;
-                        numberOfInfectedPS++;
-                    }
-                }
-                return;
+                justInfected[i] = false;
             }
-            for (int i = 0; i < PSList.Length; i++)
-            {
-                if (PSList[i].Infected)
+                if (numberOfInfectedPС == 0)
                 {
-                    for (int j = 0; j < PSList.Length; j++)
+                    for (int i = 0; i < PСList.Length; i++)
                     {
-                        if (!PSList[j].Infected && adjacencyMatrix[i, j] && OSAllowToinfect(PSList[j]))
+                        if (!PСList[i].Infected && OSAllowToinfect(PСList[i]))
                         {
-                            PSList[j].Infected = true;
-                            numberOfInfectedPS++;
+                            PСList[i].Infected = true;
+                            numberOfInfectedPС++;
                         }
                     }
-                } 
+                    return;
+                }
+            for (int i = 0; i < PСList.Length; i++)
+            {
+                if (PСList[i].Infected && !justInfected[i])
+                {
+                    for (int j = 0; j < PСList.Length; j++)
+                    {
+                        if (!PСList[j].Infected && adjacencyMatrix[i, j] && OSAllowToinfect(PСList[j]))
+                        {
+                            PСList[j].Infected = true;
+                            justInfected[j] = true;
+                            numberOfInfectedPС++;
+                        }
+                    }
+                }
             }
         }
 
-        private bool OSAllowToinfect(PS psToCheck)
+        private bool OSAllowToinfect(PС pсToCheck)
         {
-            return random.Next(99) <= psToCheck.OSType.Probability;
+            return random.Next(99) <= pсToCheck.OSType.Probability;
         }
 
         /// <summary>
@@ -147,13 +154,13 @@ namespace Local
         {
             string str = "";
             int counterOfMoves = 0;
-            while (numberOfInfectedPS != PSList.Length)
+            while (numberOfInfectedPС != PСList.Length)
             {
                 counterOfMoves++;
                 str += counterOfMoves + ". ";
-                for (int i = 0; i < PSList.Length; i++)
+                for (int i = 0; i < PСList.Length; i++)
                 {
-                    if (PSList[i].Infected)
+                    if (PСList[i].Infected)
                     {
                         str += (i + 1) + " ";
                     }
@@ -161,7 +168,7 @@ namespace Local
                 str += "\n";
                 Move();
             }
-            str += counterOfMoves + 1 + ". All PS are infected.";
+            str += counterOfMoves + 1 + ". All PС are infected.";
             return str;
         }
     }
