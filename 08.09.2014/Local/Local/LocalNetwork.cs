@@ -112,18 +112,18 @@ namespace Local
             {
                 justInfected[i] = false;
             }
-                if (numberOfInfectedPС == 0)
+            if (numberOfInfectedPС == 0)
+            {
+                for (int i = 0; i < PСList.Length; i++)
                 {
-                    for (int i = 0; i < PСList.Length; i++)
+                    if (!PСList[i].Infected && OSAllowToinfect(PСList[i]))
                     {
-                        if (!PСList[i].Infected && OSAllowToinfect(PСList[i]))
-                        {
-                            PСList[i].Infected = true;
-                            numberOfInfectedPС++;
-                        }
+                        PСList[i].Infected = true;
+                        numberOfInfectedPС++;
                     }
-                    return;
                 }
+                return;
+            }
             for (int i = 0; i < PСList.Length; i++)
             {
                 if (PСList[i].Infected && !justInfected[i])
